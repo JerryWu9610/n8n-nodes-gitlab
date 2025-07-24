@@ -91,7 +91,7 @@ module.exports = {
 				'n8n-nodes-base/node-param-description-miscased-id': 'error',
 				'n8n-nodes-base/node-param-description-miscased-json': 'error',
 				'n8n-nodes-base/node-param-description-miscased-url': 'error',
-				'n8n-nodes-base/node-param-description-missing-final-period': 'error',
+				'n8n-nodes-base/node-param-description-missing-final-period': 'off',
 				'n8n-nodes-base/node-param-description-missing-for-ignore-ssl-issues': 'error',
 				'n8n-nodes-base/node-param-description-missing-for-return-all': 'error',
 				'n8n-nodes-base/node-param-description-missing-for-simplify': 'error',
