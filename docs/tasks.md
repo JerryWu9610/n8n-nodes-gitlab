@@ -20,12 +20,12 @@
         - [x] 实现 `GET /projects/:id/repository/branches/:branch`
         - [x] 实现 `POST /projects/:id/repository/branches`
         - [x] 实现 `DELETE /projects/:id/repository/branches/:branch`
-    - [ ] **3.3 提交节点 (Commits)**
-        - [ ] 创建 `GitLabCommit.node.ts`
-        - [ ] 实现 `GET /projects/:id/repository/commits`
-        - [ ] 实现 `GET /projects/:id/repository/commits/:id`
-        - [ ] 实现 `GET /projects/:id/repository/commits/:id/diff`
-        - [ ] 实现 `GET /projects/:id/repository/compare`
+    - [x] **3.3 提交节点 (Commits)**
+        - [x] 创建 `GitLabCommit.node.ts`
+        - [x] 实现 `GET /projects/:id/repository/commits`
+        - [x] 实现 `GET /projects/:id/repository/commits/:id`
+        - [x] 实现 `GET /projects/:id/repository/commits/:id/diff`
+        - [x] 实现 `GET /projects/:id/repository/compare`
     - [ ] **3.4 合并请求节点 (Merge Requests)**
         - [ ] 创建 `GitLabMergeRequest.node.ts`
         - [ ] 实现 `GET /projects/:id/merge_requests`
