@@ -26,12 +26,12 @@
         - [x] 实现 `GET /projects/:id/repository/commits/:id`
         - [x] 实现 `GET /projects/:id/repository/commits/:id/diff`
         - [x] 实现 `GET /projects/:id/repository/compare`
-    - [ ] **3.4 合并请求节点 (Merge Requests)**
-        - [ ] 创建 `GitLabMergeRequest.node.ts`
-        - [ ] 实现 `GET /projects/:id/merge_requests`
-        - [ ] 实现 `POST /projects/:id/merge_requests`
-        - [ ] 实现 `PUT /projects/:id/merge_requests/:merge_request_iid`
-        - [ ] 实现 `DELETE /projects/:id/merge_requests/:merge_request_iid`
+    - [x] **3.4 合并请求节点 (Merge Requests)**
+        - [x] 创建 `GitLabMergeRequest.node.ts`
+        - [x] 实现 `GET /projects/:id/merge_requests`
+        - [x] 实现 `POST /projects/:id/merge_requests`
+        - [x] 实现 `PUT /projects/:id/merge_requests/:merge_request_iid`
+        - [x] 实现 `DELETE /projects/:id/merge_requests/:merge_request_iid`
     - [ ] **3.5 通用功能**
         - [ ] 实现混合认证模式（凭证 + 动态输入）
         - [ ] 处理参数简化和分页逻辑
