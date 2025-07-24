@@ -7,6 +7,7 @@ const apiHandlers: { [key: string]: ApiHandler } = {
 		return gitlab.Repositories.allRepositoryTrees(body.projectId as string, {
 			path: body.filePath as string,
 			ref: body.ref as string,
+			recursive: body.recursive as boolean,
 		});
 	},
 	getFile: (gitlab, body) => {

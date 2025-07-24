@@ -117,6 +117,27 @@ export class GitLabFile implements INodeType {
 				},
 				description: 'The name of a repository branch or tag or if not given the default branch',
 			},
+			{
+				displayName: 'Additional Fields',
+				name: 'additionalFields',
+				type: 'collection',
+				placeholder: 'Add Field',
+				default: {},
+				displayOptions: {
+					show: {
+						operation: ['getTree'],
+					},
+				},
+				options: [
+					{
+						displayName: 'Recursive',
+						name: 'recursive',
+						type: 'boolean',
+						default: false,
+						description: 'Whether to get the tree recursively',
+					},
+				],
+			},
 		],
 	};
 
@@ -129,11 +150,15 @@ export class GitLabFile implements INodeType {
 			const projectId = this.getNodeParameter('projectId', i, '') as string;
 			const filePath = this.getNodeParameter('filePath', i, '') as string;
 			const ref = this.getNodeParameter('ref', i, '') as string;
+			const additionalFields = this.getNodeParameter('additionalFields', i, {}) as {
+				recursive?: boolean;
+			};
 
 			const body = {
 				projectId,
 				filePath,
 				ref,
+				...additionalFields,
 			};
 
 			const responseData = await execute.call(this, operation, body);
