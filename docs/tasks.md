@@ -14,12 +14,12 @@
         - [x] 创建 `GitLabFile.node.ts`
         - [x] 实现 `GET /projects/:id/repository/tree`
         - [x] 实现 `GET /projects/:id/repository/files/:file_path`
-    - [ ] **3.2 分支节点 (Branches)**
-        - [ ] 创建 `GitLabBranch.node.ts`
-        - [ ] 实现 `GET /projects/:id/repository/branches`
-        - [ ] 实现 `GET /projects/:id/repository/branches/:branch`
-        - [ ] 实现 `POST /projects/:id/repository/branches`
-        - [ ] 实现 `DELETE /projects/:id/repository/branches/:branch`
+    - [x] **3.2 分支节点 (Branches)**
+        - [x] 创建 `GitLabBranch.node.ts`
+        - [x] 实现 `GET /projects/:id/repository/branches`
+        - [x] 实现 `GET /projects/:id/repository/branches/:branch`
+        - [x] 实现 `POST /projects/:id/repository/branches`
+        - [x] 实现 `DELETE /projects/:id/repository/branches/:branch`
     - [ ] **3.3 提交节点 (Commits)**
         - [ ] 创建 `GitLabCommit.node.ts`
         - [ ] 实现 `GET /projects/:id/repository/commits`

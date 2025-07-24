@@ -7,20 +7,19 @@ import {
 	INodeInputConfiguration,
 	INodeOutputConfiguration,
 } from 'n8n-workflow';
-import { execute } from './GitLabFile.node.helper';
+import { execute } from './GitLabBranch.node.helper';
 
-
-export class GitLabFile implements INodeType {
+export class GitLabBranch implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'GitLab File',
-		name: 'gitLabFile',
-		icon: 'file:GitLabFile.svg',
+		displayName: 'GitLab Branch',
+		name: 'gitLabBranch',
+		icon: 'file:GitLabBranch.svg',
 		group: ['apps'],
 		version: 1,
 		subtitle: '={{$parameter["operation"]}}',
-		description: 'Interact with GitLab repository files',
+		description: 'Interact with GitLab branches',
 		defaults: {
-			name: 'GitLab File',
+			name: 'GitLab Branch',
 		},
 		inputs: ['main'] as [NodeConnectionType | INodeInputConfiguration],
 		outputs: ['main'] as [NodeConnectionType | INodeOutputConfiguration],
@@ -30,6 +29,7 @@ export class GitLabFile implements INodeType {
 			},
 		],
 		properties: [
+			// Authentication
 			{
 				displayName: 'Host',
 				name: 'host',
@@ -48,6 +48,7 @@ export class GitLabFile implements INodeType {
 				default: '',
 				description: 'GitLab access token. Required if not using a credential.',
 			},
+			// Operations
 			{
 				displayName: 'Operation',
 				name: 'operation',
@@ -55,18 +56,29 @@ export class GitLabFile implements INodeType {
 				noDataExpression: true,
 				options: [
 					{
-						name: 'Get Tree',
-						value: 'getTree',
-						action: 'Get a repository tree',
+						name: 'List Branches',
+						value: 'list',
+						action: 'List repository branches',
 					},
 					{
-						name: 'Get File',
-						value: 'getFile',
-						action: 'Get a file',
+						name: 'Get Branch',
+						value: 'get',
+						action: 'Get a single repository branch',
+					},
+					{
+						name: 'Create Branch',
+						value: 'create',
+						action: 'Create a new branch',
+					},
+					{
+						name: 'Delete Branch',
+						value: 'delete',
+						action: 'Delete a branch',
 					},
 				],
-				default: 'getTree',
+				default: 'list',
 			},
+			// Parameters
 			{
 				displayName: 'Project ID',
 				name: 'projectId',
@@ -74,48 +86,57 @@ export class GitLabFile implements INodeType {
 				default: '',
 				required: true,
 				description: 'The ID or URL-encoded path of the project',
-				displayOptions: {
-					show: {
-						operation: ['getTree', 'getFile'],
-					},
-				},
 			},
 			{
-				displayName: 'Path',
-				name: 'filePath',
-				type: 'string',
-				default: '',
-				displayOptions: {
-					show: {
-						operation: ['getTree'],
-					},
-				},
-				description: 'The path inside repository. Used to get content of subdirectories',
-			},
-			{
-				displayName: 'Path',
-				name: 'filePath',
+				displayName: 'Branch Name',
+				name: 'branch',
 				type: 'string',
 				default: '',
 				required: true,
 				displayOptions: {
 					show: {
-						operation: ['getFile'],
+						operation: ['get', 'delete'],
 					},
 				},
-				description: 'The path of the file to retrieve',
+				description: 'The name of the branch',
+			},
+			{
+				displayName: 'Branch Name',
+				name: 'branch',
+				type: 'string',
+				default: '',
+				required: true,
+				displayOptions: {
+					show: {
+						operation: ['create'],
+					},
+				},
+				description: 'The name of the new branch',
 			},
 			{
 				displayName: 'Ref',
 				name: 'ref',
 				type: 'string',
 				default: '',
+				required: true,
 				displayOptions: {
 					show: {
-						operation: ['getTree', 'getFile'],
+						operation: ['create'],
 					},
 				},
-				description: 'The name of a repository branch or tag or if not given the default branch',
+				description: 'The branch name or commit SHA to create branch from',
+			},
+			{
+				displayName: 'Delete Protected Branch',
+				name: 'deleteProtected',
+				type: 'boolean',
+				default: false,
+				displayOptions: {
+					show: {
+						operation: ['delete'],
+					},
+				},
+				description: 'Whether to allow the deletion of a protected branch',
 			},
 		],
 	};
@@ -127,13 +148,15 @@ export class GitLabFile implements INodeType {
 		for (let i = 0; i < items.length; i++) {
 			const operation = this.getNodeParameter('operation', i, '') as string;
 			const projectId = this.getNodeParameter('projectId', i, '') as string;
-			const filePath = this.getNodeParameter('filePath', i, '') as string;
+			const branch = this.getNodeParameter('branch', i, '') as string;
 			const ref = this.getNodeParameter('ref', i, '') as string;
+			const deleteProtected = this.getNodeParameter('deleteProtected', i, false) as boolean;
 
 			const body = {
 				projectId,
-				filePath,
+				branch,
 				ref,
+				deleteProtected,
 			};
 
 			const responseData = await execute.call(this, operation, body);

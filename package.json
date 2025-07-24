@@ -26,7 +26,8 @@
     "n8nNodesApiVersion": 1,
     "credentials": [],
     "nodes": [
-      "dist/nodes/GitLabFile/GitLabFile.node.js"
+      "dist/nodes/GitLabFile/GitLabFile.node.js",
+      "dist/nodes/GitLabBranch/GitLabBranch.node.js"
     ]
   },
   "devDependencies": {
