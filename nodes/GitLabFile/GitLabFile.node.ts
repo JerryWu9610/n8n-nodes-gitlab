@@ -136,6 +136,13 @@ export class GitLabFile implements INodeType {
 						default: false,
 						description: 'Whether to get the tree recursively',
 					},
+					{
+						displayName: 'Max Pages',
+						name: 'maxPages',
+						type: 'number',
+						default: 1,
+						description: 'The maximum number of pages to return. Each page can contain up to 20 items.',
+					},
 				],
 			},
 		],
@@ -152,6 +159,7 @@ export class GitLabFile implements INodeType {
 			const ref = this.getNodeParameter('ref', i, '') as string;
 			const additionalFields = this.getNodeParameter('additionalFields', i, {}) as {
 				recursive?: boolean;
+				maxPages?: number;
 			};
 
 			const body = {

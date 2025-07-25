@@ -138,6 +138,18 @@ export class GitLabBranch implements INodeType {
 				},
 				description: 'Whether to allow the deletion of a protected branch',
 			},
+			{
+				displayName: 'Max Pages',
+				name: 'maxPages',
+				type: 'number',
+				default: 1,
+				displayOptions: {
+					show: {
+						operation: ['list'],
+					},
+				},
+				description: 'The maximum number of pages to return. Each page can contain up to 20 items.',
+			},
 		],
 	};
 
@@ -151,12 +163,14 @@ export class GitLabBranch implements INodeType {
 			const branch = this.getNodeParameter('branch', i, '') as string;
 			const ref = this.getNodeParameter('ref', i, '') as string;
 			const deleteProtected = this.getNodeParameter('deleteProtected', i, false) as boolean;
+			const maxPages = this.getNodeParameter('maxPages', i, 1) as number;
 
 			const body = {
 				projectId,
 				branch,
 				ref,
 				deleteProtected,
+				maxPages,
 			};
 
 			const responseData = await execute.call(this, operation, body);

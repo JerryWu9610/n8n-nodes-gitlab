@@ -3,7 +3,12 @@ import { ApiHandler, gitlabApiRequest } from '../gitlabApiRequest';
 
 const apiHandlers: { [key: string]: ApiHandler } = {
 	list: (gitlab, body) => {
-		return gitlab.MergeRequests.all({ projectId: body.projectId as string });
+		return gitlab.MergeRequests.all({
+			projectId: body.projectId as string,
+			maxPages: body.maxPages as number ?? 1,
+			perPage: 20,
+			showExpanded: true,
+		});
 	},
 	create: (gitlab, body) => {
 		return gitlab.MergeRequests.create(

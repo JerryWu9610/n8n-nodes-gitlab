@@ -126,6 +126,18 @@ export class GitLabCommit implements INodeType {
 				},
 				description: 'The branch name or commit SHA to compare to',
 			},
+			{
+				displayName: 'Max Pages',
+				name: 'maxPages',
+				type: 'number',
+				default: 1,
+				displayOptions: {
+					show: {
+						operation: ['list'],
+					},
+				},
+				description: 'The maximum number of pages to return. Each page can contain up to 20 items.',
+			},
 		],
 	};
 
@@ -139,12 +151,14 @@ export class GitLabCommit implements INodeType {
 			const sha = this.getNodeParameter('sha', i, '') as string;
 			const from = this.getNodeParameter('from', i, '') as string;
 			const to = this.getNodeParameter('to', i, '') as string;
+			const maxPages = this.getNodeParameter('maxPages', i, 1) as number;
 
 			const body = {
 				projectId,
 				sha,
 				from,
 				to,
+				maxPages,
 			};
 
 			const responseData = await execute.call(this, operation, body);

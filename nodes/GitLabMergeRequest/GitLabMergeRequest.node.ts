@@ -150,6 +150,18 @@ export class GitLabMergeRequest implements INodeType {
 				},
 				description: 'The new title of the merge request',
 			},
+			{
+				displayName: 'Max Pages',
+				name: 'maxPages',
+				type: 'number',
+				default: 1,
+				displayOptions: {
+					show: {
+						operation: ['list'],
+					},
+				},
+				description: 'The maximum number of pages to return. Each page can contain up to 20 items.',
+			},
 		],
 	};
 
@@ -164,6 +176,7 @@ export class GitLabMergeRequest implements INodeType {
 			const sourceBranch = this.getNodeParameter('sourceBranch', i, '') as string;
 			const targetBranch = this.getNodeParameter('targetBranch', i, '') as string;
 			const title = this.getNodeParameter('title', i, '') as string;
+			const maxPages = this.getNodeParameter('maxPages', i, 1) as number;
 
 			const body = {
 				projectId,
@@ -171,6 +184,7 @@ export class GitLabMergeRequest implements INodeType {
 				sourceBranch,
 				targetBranch,
 				title,
+				maxPages,
 			};
 
 			const responseData = await execute.call(this, operation, body);

@@ -4,7 +4,11 @@ import { ApiHandler, gitlabApiRequest } from '../gitlabApiRequest';
 
 const apiHandlers: { [key: string]: ApiHandler } = {
 	list: (gitlab, body) => {
-		return gitlab.Branches.all(body.projectId as string);
+		return gitlab.Branches.all(body.projectId as string, {
+			maxPages: body.maxPages as number ?? 1,
+			perPage: 20,
+			showExpanded: true,
+		});
 	},
 	get: (gitlab, body) => {
 		return gitlab.Branches.show(body.projectId as string, body.branch as string);

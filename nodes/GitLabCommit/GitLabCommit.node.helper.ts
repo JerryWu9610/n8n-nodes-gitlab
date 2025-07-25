@@ -3,7 +3,11 @@ import { ApiHandler, gitlabApiRequest } from '../gitlabApiRequest';
 
 const apiHandlers: { [key: string]: ApiHandler } = {
 	list: (gitlab, body) => {
-		return gitlab.Commits.all(body.projectId as string);
+		return gitlab.Commits.all(body.projectId as string, {
+			maxPages: body.maxPages as number ?? 1,
+			perPage: 20,
+			showExpanded: true,
+		});
 	},
 	get: (gitlab, body) => {
 		return gitlab.Commits.show(body.projectId as string, body.sha as string);

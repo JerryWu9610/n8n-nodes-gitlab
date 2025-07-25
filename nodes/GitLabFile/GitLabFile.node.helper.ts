@@ -8,6 +8,9 @@ const apiHandlers: { [key: string]: ApiHandler } = {
 			path: body.filePath as string,
 			ref: body.ref as string,
 			recursive: body.recursive as boolean,
+			maxPages: body.maxPages as number ?? 1,
+			perPage: 20,
+			showExpanded: true,
 		});
 	},
 	getFile: (gitlab, body) => {
@@ -18,7 +21,6 @@ const apiHandlers: { [key: string]: ApiHandler } = {
 		);
 	},
 };
-
 
 export function execute(this: IExecuteFunctions, operation: string, body: IDataObject): Promise<any> {
 	return gitlabApiRequest.call(this, { operation, body }, apiHandlers);

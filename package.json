@@ -27,7 +27,9 @@
     "credentials": [],
     "nodes": [
       "dist/nodes/GitLabFile/GitLabFile.node.js",
-      "dist/nodes/GitLabBranch/GitLabBranch.node.js"
+      "dist/nodes/GitLabBranch/GitLabBranch.node.js",
+      "dist/nodes/GitLabCommit/GitLabCommit.node.js",
+      "dist/nodes/GitLabMergeRequest/GitLabMergeRequest.node.js"
     ]
   },
   "devDependencies": {
